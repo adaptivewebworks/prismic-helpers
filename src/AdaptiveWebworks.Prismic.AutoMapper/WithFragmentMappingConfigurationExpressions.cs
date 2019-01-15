@@ -6,7 +6,8 @@ using prismic.fragments;
 
 namespace AdaptiveWebworks.Prismic.AutoMapper
 {
-    public static class MappingConfigurationExpressions
+
+    public static class WithFragmentMappingConfigurationExpressions
     {
         public static void Uid<TSource, TDestination, TMember>(
             this IMemberConfigurationExpression<TSource, TDestination, TMember> opt
@@ -24,7 +25,13 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             opt.MapFrom(s => s.Fragments);
         }
 
-        public static void Get<TSource, TDestination>(
+        public static void Get<TDestination>(
+            this IMemberConfigurationExpression<Document, TDestination, Fragment> opt,
+            string field
+        )
+        => opt.MapFrom(s => s.Get($"{s.Type}field"));
+
+        private static void Get<TSource, TDestination>(
             this IMemberConfigurationExpression<TSource, TDestination, Fragment> opt,
             string field
         )
@@ -133,7 +140,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
         {
             opt.MapFrom(s => s.GetImageView(field, view));
         }
-        
+
         public static void GetLink<TSource, TDestination>(
             this IMemberConfigurationExpression<TSource, TDestination, Link> opt,
             string field
@@ -141,6 +148,15 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             where TSource : WithFragments
         {
             opt.MapFrom(s => s.GetLink(field));
+        }
+
+        public static void GetDocumentLink<TSource, TDestination>(
+            this IMemberConfigurationExpression<TSource, TDestination, DocumentLink> opt,
+            string fieldName
+        )
+             where TSource : WithFragments
+        {
+            opt.ResolveUsing(s => s.GetDocumentLink(fieldName));
         }
 
         public static void GetNumber<TSource, TDestination>(
@@ -186,6 +202,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
         {
             opt.MapFrom(s => s.GetTimestamp(field));
         }
+
         public static void LinkedDocuments<TSource, TDestination>(
             this IMemberConfigurationExpression<TSource, TDestination, IList<DocumentLink>> opt
             )
@@ -200,7 +217,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             )
             where TSource : WithFragments
         {
-            opt.MapFrom(s => GetDocumentLinkUid(s.GetLink(field)));
+            opt.MapFrom(s => s.GetLink(field).GetDocumentLinkUid());
         }
         public static void GetLinkedField<TSource, TDestination, TMember>(
             this IMemberConfigurationExpression<TSource, TDestination, TMember> opt,
@@ -208,13 +225,17 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             Func<WithFragments, TMember> getLinkedField
             )
             where TSource : WithFragments
-        {
-            opt.ResolveUsing(s =>
+            => opt.ResolveUsing(s =>
                 {
                     var link = s.GetLink(field) as DocumentLink;
+
+                    if (link == null)
+                        return default(TMember);
+
                     return getLinkedField(link);
                 });
-        }
+
+
         // public static void GetEnum<TSource, TDestination, TMember>(
         //         this IMemberConfigurationExpression<TSource, TDestination, TMember> opt,
         //         string field,
@@ -229,17 +250,48 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
 
         //                 return value;
         //             });
-
-        private static string GetDocumentLinkUid<TSource>(TSource source)
-            where TSource : Link
+        public static void MapGroup<TSource, TDestination, TMember>(
+            this IMemberConfigurationExpression<TSource, TDestination, TMember> opt,
+            string fieldName
+        )
+             where TSource : WithFragments
         {
-            var docLink = source as DocumentLink;
-
-            if (docLink == null)
-                return string.Empty;
-
-            return docLink.Uid;
+            opt.ResolveUsing(new GroupResolver<TDestination, TMember>(fieldName));
         }
 
+        public static void MapFromSlice<TSource, TDestination, TMember>(
+            this IMemberConfigurationExpression<TSource, TDestination, TMember> opt,
+            Func<GroupDoc, TMember> map
+        )
+             where TSource : CompositeSlice
+        {
+            opt.MapFrom(s => map(s.GetPrimary()));
+        }
+
+        public static void MapFromSliceItems<TSource, TDestination, TMember>(
+            this IMemberConfigurationExpression<TSource, TDestination, TMember> opt,
+            Func<IList<GroupDoc>, ResolutionContext, TMember> map
+        )
+            where TSource : CompositeSlice
+        {
+            opt.ResolveUsing((src, dest, member, ctx) => map(src.GetItems()?.GroupDocs, ctx));
+        }
+
+        public static void GetEnum<TSource, TDestination, TEnumMember>(
+            this IMemberConfigurationExpression<TSource, TDestination, TEnumMember> opt,
+            string field)
+            where TSource : WithFragments
+            where TEnumMember : struct, System.Enum  
+        {
+            opt.ResolveUsing(s =>
+            {
+                var stringValue = s.GetText(field)?.Replace(" ", string.Empty);
+                
+                if(Enum.TryParse<TEnumMember>(stringValue, false, out TEnumMember result))
+                    return result;
+
+                return default(TEnumMember);
+            });
+        }
     }
 }
