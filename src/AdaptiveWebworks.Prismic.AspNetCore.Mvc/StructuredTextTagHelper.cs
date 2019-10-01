@@ -98,9 +98,10 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
                         return $"<p {attributes}>{body}</p>";
                         // case StructuredText.Image img:
                         //     return $"<img src={img.View.Url} alt={img.View.Alt} {attributes} />";
+                    default: 
+                        return null;
                 }
 
-                return body;
             });
     }
 }

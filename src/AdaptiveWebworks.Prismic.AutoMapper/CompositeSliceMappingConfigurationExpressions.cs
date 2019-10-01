@@ -12,11 +12,11 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             this IMemberConfigurationExpression<TSource, TDestination, TMember> opt,
             Func<WithFragments, TMember> innerMap)
                 where TSource : CompositeSlice
-            => opt.ResolveUsing(s => innerMap(s.GetPrimary()));
+            => opt.MapFrom(s => innerMap(s.GetPrimary()));
 
 
         public static void CompositeSliceFragments<TSource, TDestination>(
-            this IMemberConfigurationExpression<TSource, TDestination, IDictionary<string, Fragment>> opt
+            this IMemberConfigurationExpression<TSource, TDestination, IDictionary<string, IFragment>> opt
         )
             where TSource : CompositeSlice
         {
@@ -24,7 +24,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
         }
 
         public static void GetSliceFragment<TSource, TDestination>(
-            this IMemberConfigurationExpression<TSource, TDestination, Fragment> opt,
+            this IMemberConfigurationExpression<TSource, TDestination, IFragment> opt,
             string field
         )
             where TSource : CompositeSlice
@@ -32,7 +32,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             opt.FromSlice(s => s.Get(field));
         }
         public static void GetAllSliceFragments<TSource, TDestination>(
-            this IMemberConfigurationExpression<TSource, TDestination, IList<Fragment>> opt,
+            this IMemberConfigurationExpression<TSource, TDestination, IList<IFragment>> opt,
             string field
         )
             where TSource : CompositeSlice
@@ -134,7 +134,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
         }
 
         public static void GetLinkFromSlice<TSource, TDestination>(
-            this IMemberConfigurationExpression<TSource, TDestination, Link> opt,
+            this IMemberConfigurationExpression<TSource, TDestination, ILink> opt,
             string field
             )
             where TSource : CompositeSlice
@@ -212,14 +212,13 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
         {
             opt.FromSlice(s =>
                 {
-                    var link = s.GetLink(field) as DocumentLink;
-
-                    if (link == null)
+                    if (!(s.GetLink(field) is DocumentLink link))
                         return default(TMember);
 
                     return getLinkedField(link);
                 });
         }
+
         // public static void GetEnum<TSource, TDestination, TMember>(
         //         this IMemberConfigurationExpression<TSource, TDestination, TMember> opt,
         //         string field,

@@ -10,11 +10,9 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             => fragment.GetLink(fieldName) as DocumentLink;
 
         public static string GetDocumentLinkUid<TLink>(this TLink link)
-            where TLink : Link
+            where TLink : ILink
         {
-            var docLink = link as DocumentLink;
-
-            if (docLink == null)
+            if (!(link is DocumentLink docLink))
                 return string.Empty;
 
             return docLink.Uid;

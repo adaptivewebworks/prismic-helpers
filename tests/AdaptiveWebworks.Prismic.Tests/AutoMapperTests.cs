@@ -93,9 +93,9 @@ namespace AdaptiveWebworks.Prismic.Tests
         internal class TestDestination
         {
             public string Uid { get; set; }
-            public IDictionary<string, Fragment> Fragments { get; set; }
-            public Fragment Fragment { get; set; }
-            public IList<Fragment> AllFragments { get; set; }
+            public IDictionary<string, IFragment> Fragments { get; set; }
+            public IFragment Fragment { get; set; }
+            public IList<IFragment> AllFragments { get; set; }
             public Color Color { get; set; }
             public Date Date { get; set; }
             public DateTime? DateTime { get; set; }
@@ -105,7 +105,7 @@ namespace AdaptiveWebworks.Prismic.Tests
             public string Html { get; set; }
             public Image Image { get; set; }
             public Image.View ImageView { get; set; }
-            public Link Link { get; set; }
+            public ILink Link { get; set; }
             public Number Number { get; set; }
             public SliceZone SliceZone { get; set; }
             public StructuredText StructuredText { get; set; }

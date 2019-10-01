@@ -10,7 +10,7 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
         private readonly DocumentLinkResolver _linkResolver;
 
         [HtmlAttributeName("prismic-resolve-link")]
-        public Link Link { get; set; }
+        public ILink Link { get; set; }
 
         public PrismicLinkResolverTagHelper(DocumentLinkResolver linkResolver)
         {
