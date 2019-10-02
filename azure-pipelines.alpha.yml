@@ -5,7 +5,7 @@
 name: alpha-$(date:yyyyMMdd)$(rev:-r)
 
 trigger:
-- master
+- dev
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -17,7 +17,7 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet test --configuration $(buildConfiguration) --no-build
+- script: dotnet test tests/**/*.csproj --configuration $(buildConfiguration) --no-build
   displayName: 'dotnet test $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
