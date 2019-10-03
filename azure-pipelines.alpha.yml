@@ -25,5 +25,5 @@ steps:
   inputs:
     command: custom
     custom: pack
-    arguments: src/**/*.csproj -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages --version-suffix $(Build.BuildNumber) -v m --no-build --include-symbols
+    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages --version-suffix $(Build.BuildNumber) -v m --no-build --include-symbols
     zipAfterPublish: true
