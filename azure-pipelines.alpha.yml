@@ -36,4 +36,5 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg;!$(Build.ArtifactStagingDirectory)/packages/*.symbols.nupkg'
     nuGetFeedType: 'external'
+    allowPackageConflicts: true
     publishFeedCredentials: 'NuGet.org'
