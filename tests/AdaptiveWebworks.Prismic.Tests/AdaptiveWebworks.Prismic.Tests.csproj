@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AdaptiveWebworks.Prismic.Automapper\AdaptiveWebworks.Prismic.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\src\AdaptiveWebworks.Prismic.AutoMapper\AdaptiveWebworks.Prismic.AutoMapper.csproj" />
   </ItemGroup>
 
 </Project>
