@@ -30,3 +30,10 @@ steps:
     custom: pack
     arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages --version-suffix $(Build.BuildNumber) -v m --no-build --include-symbols
     zipAfterPublish: true
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg;!$(Build.ArtifactStagingDirectory)/packages/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet.org'
