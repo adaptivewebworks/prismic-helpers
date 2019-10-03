@@ -28,13 +28,22 @@ steps:
   inputs:
     command: custom
     custom: pack
-    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages --version-suffix $(Build.BuildNumber) -v m --no-build --include-symbols
+    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages --version-suffix $(Build.BuildNumber) -v m --no-build
     zipAfterPublish: true
 
-- task: NuGetCommand@2
+
+- task: DotNetCoreCLI@2
   inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg;!$(Build.ArtifactStagingDirectory)/packages/*.symbols.nupkg'
+    command: push
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg'
     nuGetFeedType: 'external'
-    allowPackageConflicts: true
+    nobuild: true
     publishFeedCredentials: 'NuGet.org'
+
+# - task: NuGetCommand@2
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg;!$(Build.ArtifactStagingDirectory)/packages/*.symbols.nupkg'
+#     nuGetFeedType: 'external'
+#     allowPackageConflicts: true
+#     publishFeedCredentials: 'NuGet.org'
