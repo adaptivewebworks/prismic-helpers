@@ -32,18 +32,10 @@ steps:
     zipAfterPublish: true
 
 
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
   inputs:
-    command: push
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg'
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg;!$(Build.ArtifactStagingDirectory)/packages/*.symbols.nupkg'
     nuGetFeedType: 'external'
-    nobuild: true
+    allowPackageConflicts: true
     publishFeedCredentials: 'NuGet.org'
-
-# - task: NuGetCommand@2
-#   inputs:
-#     command: 'push'
-#     packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg;!$(Build.ArtifactStagingDirectory)/packages/*.symbols.nupkg'
-#     nuGetFeedType: 'external'
-#     allowPackageConflicts: true
-#     publishFeedCredentials: 'NuGet.org'
