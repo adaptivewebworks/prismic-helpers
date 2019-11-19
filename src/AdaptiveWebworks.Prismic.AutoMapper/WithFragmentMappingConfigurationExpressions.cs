@@ -73,7 +73,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
         )
             where TSource : WithFragments
         {
-            opt.MapFrom((s,m) => s.GetDate(field)?.Value);
+            opt.MapFrom((s, m) => s.GetDate(field)?.Value);
         }
 
         public static void GetEmbed<TSource, TDestination>(
@@ -139,7 +139,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             )
             where TSource : WithFragments
         {
-            opt.MapFrom(s => s.GetImageView(field, view));
+            opt.MapFrom(s => MapImageView(s, field, view));
         }
 
         public static void GetLink<TSource, TDestination>(
@@ -226,7 +226,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             Func<WithFragments, TMember> getLinkedField
             )
             where TSource : WithFragments
-            => opt.MapFrom((s,m) =>
+            => opt.MapFrom((s, m) =>
                 {
                     if (!(s.GetLink(field) is DocumentLink link))
                         return default(TMember);
@@ -280,17 +280,30 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             this IMemberConfigurationExpression<TSource, TDestination, TEnumMember> opt,
             string field)
             where TSource : WithFragments
-            where TEnumMember : struct, System.Enum  
+            where TEnumMember : struct, System.Enum
         {
-            opt.MapFrom((s,m) =>
+            opt.MapFrom((s, m) =>
             {
                 var stringValue = s.GetText(field)?.Replace(" ", string.Empty);
-                
-                if(Enum.TryParse<TEnumMember>(stringValue, false, out TEnumMember result))
+
+                if (Enum.TryParse<TEnumMember>(stringValue, false, out TEnumMember result))
                     return result;
 
                 return default(TEnumMember);
             });
+        }
+
+        private static Image.View MapImageView(WithFragments fragments, string field, string view)
+        {
+            var image = fragments.GetImage(field);
+
+            if (image == null)
+                return null;
+
+            if (image.TryGetView(view, out var imageView))
+                return imageView;
+
+            return null;
         }
     }
 }

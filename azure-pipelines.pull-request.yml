@@ -4,10 +4,12 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 name: alpha-$(date:yyyyMMdd)$(rev:-r)
 
-trigger:
-- dev
-
-pr: none
+pr:
+  branches:
+    include:
+    - master
+    exclude:
+    - '*'
 
 pool:
   vmImage: 'ubuntu-latest'
