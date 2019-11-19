@@ -21,11 +21,11 @@ namespace AdaptiveWebworks.Prismic.Tests
             var mapper = CreateMapper(config =>
             {
                 config
-                    .CreateMap<Document, TestDestination>()
+                    .CreateMap<Document, Models.TestDestination>()
                     .ForMember(d => d.ImageView, s => s.GetImageView("test.image", "main"))
                     .ForAllOtherMembers(opt => opt.Ignore());
             });
-            var dest = mapper.Map<TestDestination>(_document);
+            var dest = mapper.Map<Models.TestDestination>(_document);
 
             Assert.NotNull(dest.ImageView);
             Assert.Equal("https://images.prismic.io/test/test.jpg?auto=compress,format", dest.ImageView.Url);
@@ -37,12 +37,12 @@ namespace AdaptiveWebworks.Prismic.Tests
             var mapper = CreateMapper(config =>
             {
                 config
-                    .CreateMap<Document, TestDestination>()
+                    .CreateMap<Document, Models.TestDestination>()
                     .ForMember(d => d.Image, s => s.GetImage("test.image"))
                     .ForAllOtherMembers(opt => opt.Ignore());
             });
 
-            var dest = mapper.Map<TestDestination>(_document);
+            var dest = mapper.Map<Models.TestDestination>(_document);
 
             Assert.NotNull(dest.Image);
             Assert.Equal("https://images.prismic.io/test/test.jpg?auto=compress,format", dest.Image.GetView("main").Url);
