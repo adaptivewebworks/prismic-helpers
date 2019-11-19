@@ -2,7 +2,6 @@
 # Build and test ASP.NET Core projects targeting .NET Core.
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-name: alpha-$(date:yyyyMMdd)$(rev:-r)
 
 pr:
   branches:
@@ -34,12 +33,3 @@ steps:
     custom: pack
     arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages --version-suffix $(Build.BuildNumber) -v m --no-build
     zipAfterPublish: true
-
-
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg;!$(Build.ArtifactStagingDirectory)/packages/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    allowPackageConflicts: true
-    publishFeedCredentials: 'NuGet.org'
