@@ -3,7 +3,6 @@ using AutoMapper;
 using prismic;
 using AdaptiveWebworks.Prismic.AutoMapper;
 using prismic.fragments;
-using Newtonsoft.Json;
 
 namespace AdaptiveWebworks.Prismic.Tests
 {
@@ -15,7 +14,7 @@ namespace AdaptiveWebworks.Prismic.Tests
         {
             var mapperConfiguration = new MapperConfiguration(config =>
             {
-                config.CreateMap<Document, TestDestination>()
+                config.CreateMap<Document, Models.TestDestination>()
                     .ForMember(d => d.Uid, opt => opt.Uid())
                     .ForMember(d => d.Fragments, opt => opt.Fragments())
                     .ForMember(d => d.Fragment, opt => opt.Get("field"))
@@ -49,10 +48,10 @@ namespace AdaptiveWebworks.Prismic.Tests
                     .ForMember(d => d.GroupItems, opt => opt.MapGroup("field"));
                 ;
 
-                config.CreateMap<GroupDoc, GroupItemTest>()
+                config.CreateMap<GroupDoc, Models.GroupItemTest>()
                     .ForMember(d => d.String, opt => opt.GetText("field"));
 
-                config.CreateMap<CompositeSlice, TestDestination>()
+                config.CreateMap<CompositeSlice, Models.TestDestination>()
                     .ForMember(d => d.Fragments, opt => opt.CompositeSliceFragments())
                     .ForMember(d => d.Fragment, opt => opt.GetSliceFragment("field"))
                     .ForMember(d => d.AllFragments, opt => opt.GetAllSliceFragments("field"))

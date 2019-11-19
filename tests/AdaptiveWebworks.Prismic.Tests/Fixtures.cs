@@ -12,7 +12,7 @@ namespace AdaptiveWebworks.Prismic.Tests
         {
             var directory = Directory.GetCurrentDirectory();
             var sep = Path.DirectorySeparatorChar;
-            var path = $"{directory}{sep}fixtures{sep}{file}";
+            var path = $"{directory}{sep}Fixtures{sep}{file}";
             string text = File.ReadAllText(path);
             return JToken.Parse(text);
         }

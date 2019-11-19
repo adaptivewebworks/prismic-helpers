@@ -3,7 +3,7 @@ using prismic;
 using System.Collections.Generic;
 using prismic.fragments;
 
-namespace AdaptiveWebworks.Prismic.Tests
+namespace AdaptiveWebworks.Prismic.Tests.Models
 {
     public class TestDestination
     {

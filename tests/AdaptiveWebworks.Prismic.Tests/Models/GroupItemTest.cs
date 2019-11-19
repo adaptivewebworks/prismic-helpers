@@ -1,4 +1,4 @@
-namespace AdaptiveWebworks.Prismic.Tests
+namespace AdaptiveWebworks.Prismic.Tests.Models
 {
     public class GroupItemTest
     {
