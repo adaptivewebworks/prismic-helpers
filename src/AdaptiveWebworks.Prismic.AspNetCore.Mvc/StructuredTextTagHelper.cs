@@ -26,11 +26,12 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
             if (Content == null || !Content.Blocks.Any())
                 return;
 
-            output.Attributes.RemoveAll("content");           
+            output.Attributes.RemoveAll("content");
             output.PreContent.AppendHtml(GetHtml(context));
         }
 
-        protected virtual string GetHtml(TagHelperContext context) {
+        protected virtual string GetHtml(TagHelperContext context)
+        {
             var attributes = CreateHtmlAttributeString(context);
 
             return (Content.Blocks.Count == 1)
@@ -84,24 +85,24 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
             return string.Empty;
         }
 
-        protected virtual HtmlSerializer Serializer(string attributes) =>
-            HtmlSerializer.For((el, body) =>
-            {
-                if(body == string.Empty)
-                    return string.Empty;
-
-                switch (el)
+        protected virtual HtmlSerializer Serializer(string attributes)
+            => HtmlSerializer.For(
+                (el, body) =>
                 {
-                    case StructuredText.Heading h:
-                        return $"<h{h.Level} {attributes}>{body}</h{h.Level}>";
-                    case StructuredText.Paragraph p:
-                        return $"<p {attributes}>{body}</p>";
-                        // case StructuredText.Image img:
-                        //     return $"<img src={img.View.Url} alt={img.View.Alt} {attributes} />";
-                    default: 
+                    if (body == string.Empty)
                         return null;
-                }
 
-            });
+                    switch (el)
+                    {
+                        case StructuredText.Heading h:
+                            return $"<h{h.Level} {attributes}>{body}</h{h.Level}>";
+                        case StructuredText.Paragraph p:
+                            return $"<p {attributes}>{body}</p>";
+                        default:
+                            return null;
+                    }
+
+                }
+            );
     }
 }

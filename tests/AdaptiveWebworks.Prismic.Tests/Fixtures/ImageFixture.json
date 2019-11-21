@@ -2,7 +2,7 @@
     "id": "XFMaxREAABy4qOog",
     "uid": "imagefixturetest",
     "type": "test",
-    "href": "https://test.cdn.prismic.io/api/v1/documents/search?ref=XY_H-BAAAB8AruMv&q=%5B%5B%3Ad+%3D+at%28document.id%2C+%22XFMaxREAABy4qOog%22%29+%5D%5D",
+    "href": null,
     "tags": [],
     "first_publication_date": "2019-02-25T22:25:00+0000",
     "last_publication_date": "2019-08-31T14:19:57+0000",
@@ -25,7 +25,8 @@
                         "copyright": null,
                         "url": "https://images.prismic.io/test/test.jpg?auto=compress,format"
                     },
-                    "views": {}
+                    "views": {
+                    }
                 }
             }
         }

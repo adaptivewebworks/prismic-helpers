@@ -130,7 +130,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             )
             where TSource : CompositeSlice
         {
-            opt.FromSlice(s => s.GetImageView(field, view));
+            opt.FromSlice(s => ImageMappingExtensions.MapImageView(s, field, view));
         }
 
         public static void GetLinkFromSlice<TSource, TDestination>(
@@ -234,4 +234,3 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
         //                 return value;
         //             });*/
     }
-}

@@ -4,12 +4,12 @@ using prismic.fragments;
 
 namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
 {
-    [HtmlTargetElement("a", Attributes = "prismic-resolve-link")]
+    [HtmlTargetElement("a", Attributes = "prismic-link")]
     public class PrismicLinkResolverTagHelper : TagHelper
     {
         private readonly DocumentLinkResolver _linkResolver;
 
-        [HtmlAttributeName("prismic-resolve-link")]
+        [HtmlAttributeName("prismic-link")]
         public ILink Link { get; set; }
 
         public PrismicLinkResolverTagHelper(DocumentLinkResolver linkResolver)
@@ -19,7 +19,7 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.RemoveAll("prismic-resolve-link");
+            output.Attributes.RemoveAll("prismic-link");
             output.Attributes.Add("href", ResolveLink());
         }
 
