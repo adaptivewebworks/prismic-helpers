@@ -218,19 +218,5 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
                     return getLinkedField(link);
                 });
         }
-
-        // public static void GetEnum<TSource, TDestination, TMember>(
-        //         this IMemberConfigurationExpression<TSource, TDestination, TMember> opt,
-        //         string field,
-        //         Type enumType)
-        //         where TSource : CompositeSlice 
-        //         => opt.FromSlice(s =>
-        //             {
-        //                 var stringValue = s.GetText(field)?.Replace(" ", string.Empty);
-        //                 var value = enumType.IsValueType ? Activator.CreateInstance(enumType) : null;
-
-        //                 Enum.TryParse(enumType, stringValue, out value);
-
-        //                 return value;
-        //             });*/
     }
+}

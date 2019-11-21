@@ -10,6 +10,16 @@
                 "${workspaceFolder}/tests/AdaptiveWebworks.Prismic.Tests/AdaptiveWebworks.Prismic.Tests.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "/p:CollectCoverage=true"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

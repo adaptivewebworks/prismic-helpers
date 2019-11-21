@@ -139,7 +139,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             )
             where TSource : WithFragments
         {
-            opt.MapFrom(s => MapImageView(s, field, view));
+            opt.MapFrom(s => ImageMappingExtensions.MapImageView(s, field, view));
         }
 
         public static void GetLink<TSource, TDestination>(
@@ -291,19 +291,6 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
 
                 return default(TEnumMember);
             });
-        }
-
-        private static Image.View MapImageView(WithFragments fragments, string field, string view)
-        {
-            var image = fragments.GetImage(field);
-
-            if (image == null)
-                return null;
-
-            if (image.TryGetView(view, out var imageView))
-                return imageView;
-
-            return null;
         }
     }
 }

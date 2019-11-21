@@ -1,0 +1,450 @@
+{
+  "AdaptiveWebworks.Prismic.AutoMapper.dll": {
+    "/Users/benembery/Projects/prismic-helpers/src/AdaptiveWebworks.Prismic.AutoMapper/CompositeSliceMappingConfigurationExpressions.cs": {
+      "AdaptiveWebworks.Prismic.AutoMapper.CompositeSliceMappingConfigurationExpressions": {
+        "System.Void AdaptiveWebworks.Prismic.AutoMapper.CompositeSliceMappingConfigurationExpressions::GetDocumentLinkFromSlice(AutoMapper.IMemberConfigurationExpression`3<TSource,TDestination,prismic.fragments.DocumentLink>,System.String)": {
+          "Lines": {
+            "150": 0,
+            "151": 0,
+            "152": 0
+          }
+        }
+      },
+      "AdaptiveWebworks.Prismic.AutoMapper.CompositeSliceMappingConfigurationExpressions/<>c__DisplayClass6_0`2": {
+        "System.Nullable`1<System.DateTime> AdaptiveWebworks.Prismic.AutoMapper.CompositeSliceMappingConfigurationExpressions/<>c__DisplayClass6_0`2::<GetDateTimeFromSlice>b__0(prismic.WithFragments)": {
+          "Branches": [
+            {
+              "Line": 67,
+              "Offset": 13,
+              "EndOffset": 15,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 67,
+              "Offset": 13,
+              "EndOffset": 27,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "AdaptiveWebworks.Prismic.AutoMapper.CompositeSliceMappingConfigurationExpressions/<>c__DisplayClass22_0`3": {
+        "TMember AdaptiveWebworks.Prismic.AutoMapper.CompositeSliceMappingConfigurationExpressions/<>c__DisplayClass22_0`3::<GetLinkedFieldFromSlice>b__0(prismic.WithFragments)": {
+          "Branches": [
+            {
+              "Line": 215,
+              "Offset": 28,
+              "EndOffset": 30,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 215,
+              "Offset": 28,
+              "EndOffset": 42,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "/Users/benembery/Projects/prismic-helpers/src/AdaptiveWebworks.Prismic.AutoMapper/GroupResolver.cs": {
+      "AdaptiveWebworks.Prismic.AutoMapper.GroupResolver`2": {
+        "TMember AdaptiveWebworks.Prismic.AutoMapper.GroupResolver`2::Resolve(prismic.WithFragments,TDest,TMember,AutoMapper.ResolutionContext)": {
+          "Lines": {
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "20": 0,
+            "22": 0,
+            "23": 0
+          },
+          "Branches": [
+            {
+              "Line": 17,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 17,
+              "Offset": 7,
+              "EndOffset": 21,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "/Users/benembery/Projects/prismic-helpers/src/AdaptiveWebworks.Prismic.AutoMapper/ImageMappingExtensions.cs": {
+      "AdaptiveWebworks.Prismic.AutoMapper.ImageMappingExtensions": {
+        "prismic.fragments.Image/View AdaptiveWebworks.Prismic.AutoMapper.ImageMappingExtensions::MapImageView(prismic.WithFragments,System.String,System.String)": {
+          "Lines": {
+            "13": 0,
+            "18": 0
+          },
+          "Branches": [
+            {
+              "Line": 12,
+              "Offset": 15,
+              "EndOffset": 17,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 15,
+              "Offset": 34,
+              "EndOffset": 40,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "/Users/benembery/Projects/prismic-helpers/src/AdaptiveWebworks.Prismic.AutoMapper/SliceResolver.cs": {
+      "AdaptiveWebworks.Prismic.AutoMapper.SliceResolver`1": {
+        "System.Collections.Generic.IList`1<AdaptiveWebworks.Prismic.AutoMapper.ISlice> AdaptiveWebworks.Prismic.AutoMapper.SliceResolver`1::Resolve(prismic.Document,TDest,System.Collections.Generic.IList`1<AdaptiveWebworks.Prismic.AutoMapper.ISlice>,AutoMapper.ResolutionContext)": {
+          "Lines": {
+            "19": 0,
+            "20": 0,
+            "22": 0,
+            "24": 0,
+            "25": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "35": 0,
+            "36": 0
+          },
+          "Branches": [
+            {
+              "Line": 20,
+              "Offset": 3,
+              "EndOffset": 5,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 20,
+              "Offset": 3,
+              "EndOffset": 11,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 21,
+              "EndOffset": 23,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 21,
+              "EndOffset": 34,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 37,
+              "EndOffset": 39,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 37,
+              "EndOffset": 43,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 27,
+              "Offset": 104,
+              "EndOffset": 54,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 31,
+              "Offset": 85,
+              "EndOffset": 87,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 31,
+              "Offset": 85,
+              "EndOffset": 96,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 27,
+              "Offset": 104,
+              "EndOffset": 106,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Collections.Generic.IList`1<prismic.fragments.CompositeSlice> AdaptiveWebworks.Prismic.AutoMapper.SliceResolver`1::GetSlices(prismic.Document)": {
+          "Lines": {
+            "39": 0,
+            "40": 0,
+            "42": 0,
+            "43": 0
+          },
+          "Branches": [
+            {
+              "Line": 42,
+              "Offset": 31,
+              "EndOffset": 33,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 42,
+              "Offset": 31,
+              "EndOffset": 36,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "AdaptiveWebworks.Prismic.AutoMapper.ISlice AdaptiveWebworks.Prismic.AutoMapper.SliceResolver`1::MapSliceType(prismic.fragments.CompositeSlice,AutoMapper.ResolutionContext)": {
+          "Lines": {
+            "46": 0,
+            "47": 0,
+            "48": 0
+          }
+        },
+        "System.Void AdaptiveWebworks.Prismic.AutoMapper.SliceResolver`1::.ctor(System.String)": {
+          "Lines": {
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0
+          }
+        }
+      }
+    },
+    "/Users/benembery/Projects/prismic-helpers/src/AdaptiveWebworks.Prismic.AutoMapper/WithFragmentExtensions.cs": {
+      "AdaptiveWebworks.Prismic.AutoMapper.WithFragmentExtensions": {
+        "prismic.fragments.DocumentLink AdaptiveWebworks.Prismic.AutoMapper.WithFragmentExtensions::GetDocumentLink(prismic.WithFragments,System.String)": {
+          "Lines": {
+            "10": 0
+          }
+        },
+        "System.String AdaptiveWebworks.Prismic.AutoMapper.WithFragmentExtensions::GetDocumentLinkUid(TLink)": {
+          "Lines": {
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "18": 0,
+            "19": 0
+          },
+          "Branches": [
+            {
+              "Line": 15,
+              "Offset": 22,
+              "EndOffset": 24,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 15,
+              "Offset": 22,
+              "EndOffset": 32,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "/Users/benembery/Projects/prismic-helpers/src/AdaptiveWebworks.Prismic.AutoMapper/WithFragmentMappingConfigurationExpressions.cs": {
+      "AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions": {
+        "System.Void AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions::Get(AutoMapper.IMemberConfigurationExpression`3<TSource,TDestination,prismic.IFragment>,System.String)": {
+          "Lines": {
+            "39": 0,
+            "40": 0,
+            "41": 0
+          }
+        },
+        "System.Void AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions::GetDocumentLink(AutoMapper.IMemberConfigurationExpression`3<TSource,TDestination,prismic.fragments.DocumentLink>,System.String)": {
+          "Lines": {
+            "159": 0,
+            "160": 0,
+            "161": 0
+          }
+        },
+        "System.Void AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions::MapFromSlice(AutoMapper.IMemberConfigurationExpression`3<TSource,TDestination,TMember>,System.Func`2<prismic.GroupDoc,TMember>)": {
+          "Lines": {
+            "266": 0,
+            "267": 0,
+            "268": 0
+          }
+        },
+        "System.Void AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions::MapFromSliceItems(AutoMapper.IMemberConfigurationExpression`3<TSource,TDestination,TMember>,System.Func`3<System.Collections.Generic.IList`1<prismic.GroupDoc>,AutoMapper.ResolutionContext,TMember>)": {
+          "Lines": {
+            "275": 0,
+            "276": 0,
+            "277": 0
+          }
+        },
+        "System.Void AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions::GetEnum(AutoMapper.IMemberConfigurationExpression`3<TSource,TDestination,TEnumMember>,System.String)": {
+          "Lines": {
+            "284": 0,
+            "285": 0,
+            "286": 0,
+            "287": 0,
+            "288": 0,
+            "289": 0,
+            "290": 0,
+            "291": 0,
+            "292": 0,
+            "293": 0,
+            "294": 0
+          }
+        }
+      },
+      "AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions/<>c__DisplayClass7_0`2": {
+        "System.Nullable`1<System.DateTime> AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions/<>c__DisplayClass7_0`2::<GetDateTime>b__0(TSource,TDestination)": {
+          "Branches": [
+            {
+              "Line": 76,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 76,
+              "Offset": 18,
+              "EndOffset": 32,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions/<>c__DisplayClass24_0`3": {
+        "TMember AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions/<>c__DisplayClass24_0`3::<GetLinkedField>b__0(TSource,TDestination)": {
+          "Branches": [
+            {
+              "Line": 231,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 231,
+              "Offset": 33,
+              "EndOffset": 47,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions/<>c__DisplayClass27_0`3": {
+        "TMember AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions/<>c__DisplayClass27_0`3::<MapFromSliceItems>b__0(TSource,TDestination,TMember,AutoMapper.ResolutionContext)": {
+          "Branches": [
+            {
+              "Line": 276,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 276,
+              "Offset": 18,
+              "EndOffset": 24,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions/<>c__DisplayClass28_0`3": {
+        "TEnumMember AdaptiveWebworks.Prismic.AutoMapper.WithFragmentMappingConfigurationExpressions/<>c__DisplayClass28_0`3::<GetEnum>b__0(TSource,TDestination)": {
+          "Branches": [
+            {
+              "Line": 287,
+              "Offset": 19,
+              "EndOffset": 21,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 287,
+              "Offset": 19,
+              "EndOffset": 25,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 289,
+              "Offset": 52,
+              "EndOffset": 54,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 289,
+              "Offset": 52,
+              "EndOffset": 58,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}
