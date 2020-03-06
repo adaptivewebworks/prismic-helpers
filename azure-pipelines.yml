@@ -26,6 +26,7 @@ steps:
   inputs:
     command: custom
     custom: pack
+    versioningScheme: byBuildNumber
     arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages --version-suffix "pre.$(Rev:r)" -v m --no-build
     zipAfterPublish: true
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
