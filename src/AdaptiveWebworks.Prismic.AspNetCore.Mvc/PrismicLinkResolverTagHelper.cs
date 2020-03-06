@@ -23,6 +23,13 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.Attributes.RemoveAll(href);
+
+            if(Link == null)
+            {
+                output.TagName = "span";
+                return;
+            }
+            
             output.Attributes.Add("href", ResolveLink());
         }
 
