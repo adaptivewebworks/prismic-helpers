@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\AdaptiveWebworks.Prismic.AutoMapper\AdaptiveWebworks.Prismic.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\src\AdaptiveWebworks.Prismic.AspNetCore.Mvc\AdaptiveWebworks.Prismic.AspNetCore.Mvc.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fixtures\*.*" CopyToOutputDirectory="always" />

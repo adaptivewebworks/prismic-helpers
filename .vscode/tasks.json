@@ -17,7 +17,9 @@
             "type": "process",
             "args": [
                 "test",
-                "/p:CollectCoverage=true"
+                "/p:CollectCoverage=true",
+                "/p:CoverletOutput=./TestResults/lcov",
+                "/p:CoverletOutputFormat=lcov",
             ],
             "problemMatcher": "$msCompile"
         }

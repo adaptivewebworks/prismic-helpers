@@ -1,6 +1,6 @@
-namespace AdaptiveWebworks.Prismic.AutoMapper
+﻿namespace AdaptiveWebworks.Prismic.AutoMapper
 {
-    public interface ISlice
+    public interface IMappedSlice
     {
         string SliceType { get; set; }
         string SliceLabel { get; set; }

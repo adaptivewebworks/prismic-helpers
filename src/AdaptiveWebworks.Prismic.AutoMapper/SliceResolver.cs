@@ -6,7 +6,7 @@ using prismic.fragments;
 
 namespace AdaptiveWebworks.Prismic.AutoMapper
 {
-    public class SliceResolver<TDest> : IValueResolver<Document, TDest, IList<ISlice>>
+    public class SliceResolver<TDest> : IValueResolver<Document, TDest, IList<IMappedSlice>>
     {
         private readonly string _fieldName;
 
@@ -15,9 +15,9 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             _fieldName = fieldName;
         }
 
-        public IList<ISlice> Resolve(Document source, TDest destination, IList<ISlice> destMember, ResolutionContext context)
+        public IList<IMappedSlice> Resolve(Document source, TDest destination, IList<IMappedSlice> destMember, ResolutionContext context)
         {
-            var mappedMember = destMember ?? new List<ISlice>();
+            var mappedMember = destMember ?? new List<IMappedSlice>();
 
             var slices = GetSlices(source);
 
@@ -42,7 +42,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             return sliceZone?.Slices.OfType<CompositeSlice>().ToList();
         }
 
-        protected virtual ISlice MapSliceType(CompositeSlice slice, ResolutionContext context)
+        protected virtual IMappedSlice MapSliceType(CompositeSlice slice, ResolutionContext context)
         {
             return null;
         }
