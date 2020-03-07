@@ -10,6 +10,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  PRERELEASE_VERSION: 'pre.$(Rev:rr)'
 
 steps:
 - script: dotnet clean --configuration $(buildConfiguration)
@@ -26,8 +27,9 @@ steps:
   inputs:
     command: custom
     custom: pack
-    versioningScheme: off
-    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages --version-suffix "pre.$(Rev:r)" -v m --no-build
+    versioningScheme: byEnvVar
+    versionEnvVar: PRERELEASE_VERSION
+    arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages  -v m --no-build
     zipAfterPublish: true
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
 
