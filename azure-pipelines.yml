@@ -10,7 +10,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  PRERELEASE_VERSION: 'pre.$(Rev:rr)'
+  PRERELEASE_VERSION: 'pre.$(Build.BuildNumber)'
 
 steps:
 - script: dotnet clean --configuration $(buildConfiguration)
