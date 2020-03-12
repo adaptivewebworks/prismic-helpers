@@ -13,6 +13,15 @@ namespace AdaptiveWebworks.Prismic.Tests.AspNetCoreMvc
 
     public class StructuredTextTagHelperTests
     {
+        private DocumentLinkResolver linkResolver = DocumentLinkResolver.For(_ => string.Empty);
+
+        private StructuredText Fragment = new StructuredText(new List<Block>{
+            new Paragraph("Test", new List<Span>(), null),
+        });
+
+         private StructuredText FragmentWithLabel = new StructuredText(new List<Block>{
+            new Paragraph("Test", new List<Span>(), "test-label"),
+        });
 
         [Fact]
         public void StructuredTextTagHelper_throws_an_exception_when_constructor_arguments_are_not_supplied()
@@ -27,7 +36,7 @@ namespace AdaptiveWebworks.Prismic.Tests.AspNetCoreMvc
             var ctx = CreateContext();
             var output = CreateOutput();
 
-            var tagHelper = new StructuredTextTagHelper(DocumentLinkResolver.For(_ => string.Empty))
+            var tagHelper = new StructuredTextTagHelper(linkResolver)
             {
                 Fragment = null
             };
@@ -46,36 +55,32 @@ namespace AdaptiveWebworks.Prismic.Tests.AspNetCoreMvc
             var ctx = CreateContext();
             var output = CreateOutput();
 
-            var tagHelper = new StructuredTextTagHelper(DocumentLinkResolver.For(_ => string.Empty))
+            var tagHelper = new StructuredTextTagHelper(linkResolver)
             {
-                Fragment = new StructuredText(new List<Block>{
-                    new Preformatted("Test", new List<Span>(), null),
-                })
+                Fragment = Fragment
             };
 
             tagHelper.Process(ctx, output);
 
             Assert.Null(output.TagName);
-            Assert.Equal("<pre>Test</pre>", output.Content.GetContent());
+            Assert.Equal("<p>Test</p>", output.Content.GetContent());
             Assert.False(output.Attributes.TryGetAttribute("content", out var _));
         }
 
         [Fact]
         public void StructuredTextTagHelper_outputs_attributes_correctly()
         {
-            var ctx = CreateContext(new List<TagHelperAttribute> { 
-                new TagHelperAttribute("class", "test-class"), 
-                new TagHelperAttribute("single", "quotes", HtmlAttributeValueStyle.SingleQuotes), 
-                new TagHelperAttribute("no", "quotes", HtmlAttributeValueStyle.NoQuotes), 
-                new TagHelperAttribute("minimized", true, HtmlAttributeValueStyle.Minimized), 
+            var ctx = CreateContext(new List<TagHelperAttribute> {
+                new TagHelperAttribute("class", "test-class"),
+                new TagHelperAttribute("single", "quotes", HtmlAttributeValueStyle.SingleQuotes),
+                new TagHelperAttribute("no", "quotes", HtmlAttributeValueStyle.NoQuotes),
+                new TagHelperAttribute("minimized", true, HtmlAttributeValueStyle.Minimized),
             });
             var output = CreateOutput();
 
-            var tagHelper = new StructuredTextTagHelper(DocumentLinkResolver.For(_ => string.Empty))
+            var tagHelper = new StructuredTextTagHelper(linkResolver)
             {
-                Fragment = new StructuredText(new List<Block>{
-                    new Paragraph("Test", new List<Span>(), null),
-                })
+                Fragment = Fragment
             };
 
             tagHelper.Process(ctx, output);
@@ -86,12 +91,12 @@ namespace AdaptiveWebworks.Prismic.Tests.AspNetCoreMvc
         }
 
         [Fact]
-        public void StructuredTextTagHelper_outputs_multiple_block_wrapped_in_a_div()
+        public void StructuredTextTagHelper_outputs_multiple_blocks_wrapped_in_a_div()
         {
             var ctx = CreateContext(new List<TagHelperAttribute> { });
             var output = CreateOutput();
 
-            var tagHelper = new StructuredTextTagHelper(DocumentLinkResolver.For(_ => string.Empty))
+            var tagHelper = new StructuredTextTagHelper(linkResolver)
             {
                 Fragment = new StructuredText(new List<Block>{
                     new Paragraph("Test", new List<Span>(), null),
@@ -113,7 +118,7 @@ namespace AdaptiveWebworks.Prismic.Tests.AspNetCoreMvc
             var ctx = CreateContext(new List<TagHelperAttribute> { });
             var output = CreateOutput();
 
-            var tagHelper = new StructuredTextTagHelper(DocumentLinkResolver.For(_ => string.Empty))
+            var tagHelper = new StructuredTextTagHelper(linkResolver)
             {
                 Fragment = new StructuredText(new List<Block>{
                     new Paragraph(string.Empty, new List<Span>(), null),
@@ -133,17 +138,33 @@ namespace AdaptiveWebworks.Prismic.Tests.AspNetCoreMvc
             var ctx = CreateContext(new List<TagHelperAttribute> { null });
             var output = CreateOutput();
 
-            var tagHelper = new StructuredTextTagHelper(DocumentLinkResolver.For(_ => string.Empty))
+            var tagHelper = new StructuredTextTagHelper(linkResolver)
             {
-                Fragment = new StructuredText(new List<Block>{
-                    new Paragraph("Test", new List<Span>(), null),
-                })
+                Fragment = Fragment
             };
 
             tagHelper.Process(ctx, output);
 
             Assert.Null(output.TagName);
             Assert.Equal("<p>Test</p>", output.Content.GetContent());
+            Assert.False(output.Attributes.TryGetAttribute("content", out var _));
+        }
+
+        [Fact]
+        public void StructuredTextTagHelper_appends_label_to_cssClass_for_single_block_elements()
+        {
+            var ctx = CreateContext(new List<TagHelperAttribute> { null });
+            var output = CreateOutput();
+
+            var tagHelper = new StructuredTextTagHelper(linkResolver)
+            {
+                Fragment = FragmentWithLabel
+            };
+
+            tagHelper.Process(ctx, output);
+
+            Assert.Null(output.TagName);
+            Assert.Equal("<p class=\"test-label\">Test</p>", output.Content.GetContent());
             Assert.False(output.Attributes.TryGetAttribute("content", out var _));
         }
 

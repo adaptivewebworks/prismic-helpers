@@ -21,44 +21,64 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            //TODO: look to move Block count check into here changing the tag name to div and leaving attributes in place for more than 1 block.
             output.SuppressOutput();
 
             if (Fragment == null || !Fragment.Blocks.Any())
                 return;
 
-            output.Attributes.RemoveAll("content");
+// TODO: for 1 block elements call suppress output here and change content...
+            output.Attributes.RemoveAll("fragment");
             output.Content.SetHtmlContent(GetHtml(context));
         }
 
         protected virtual string GetHtml(TagHelperContext context)
         {
-            var cssClass = context.AllAttributes.FirstOrDefault(x => x?.Name == "class");
-            var attributes = CreateHtmlAttributeString(context);
+            var attributes = GetAttributes(context);
 
             return (Fragment.Blocks.Count == 1)
-                    ? GetHtml(attributes)
-                    : $"<div{attributes}>{GetHtml()}</div>";
+                    ? GetHtml(attributes, Fragment.Blocks.First().Label)
+                    : $"<div{CreateHtmlAttributeString(attributes)}>{Fragment.AsHtml(_linkResolver)}</div>";
         }
 
-        protected virtual string GetHtml(string attributes = null)
-            => string.IsNullOrWhiteSpace(attributes)
-                ? Fragment.AsHtml(_linkResolver)
-                : Fragment.AsHtml(_linkResolver, Serializer(attributes));
+        protected virtual string GetHtml(List<TagHelperAttribute> attributes, string label = null)
+        {
+            var parsedAttrs = CreateHtmlAttributeString(attributes, label);
+
+            return Fragment.AsHtml(_linkResolver, Serializer(parsedAttrs));
+        }
 
         protected virtual List<TagHelperAttribute> GetAttributes(TagHelperContext context)
             => context
                 .AllAttributes
-                .Where(x => x?.Name.Equals("content", StringComparison.InvariantCultureIgnoreCase) != true)
+                .Where(x => x?.Name.Equals("fragment", StringComparison.InvariantCultureIgnoreCase) != true)
                 .ToList();
 
-        protected string CreateHtmlAttributeString(TagHelperContext context)
+        protected string CreateHtmlAttributeString(List<TagHelperAttribute> allAttributes, string label = null)
         {
+            if(!string.IsNullOrWhiteSpace(label))
+            {
+                var cssClassAttribute = allAttributes.FirstOrDefault(x => x?.Name == "class");
+
+                var exsistingCssClass = cssClassAttribute?.Value?.ToString();
+                
+                var newCssClassAttribute = new TagHelperAttribute(
+                    "class", 
+                    string.Join(" ", new [] {exsistingCssClass, label}.Where(x => !string.IsNullOrWhiteSpace(x)))                    , 
+                    HtmlAttributeValueStyle.DoubleQuotes);
+
+                if(cssClassAttribute != null)
+                    cssClassAttribute = newCssClassAttribute;
+                else 
+                    allAttributes.Add(newCssClassAttribute);
+            }
+
             var attributes = string.Join(
                 " ",
-                GetAttributes(context)
-                    .Select(BuildAttribute)
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                );
+                allAttributes
+                .Select(BuildAttribute)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+            );
 
             if (string.IsNullOrWhiteSpace(attributes))
                 return string.Empty;
@@ -90,7 +110,7 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
                 (el, body) =>
                 {
                     if (body == string.Empty)
-                        return string.Empty;
+                        return null;
 
                     switch (el)
                     {
