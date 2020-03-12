@@ -12,51 +12,52 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
     {
         private readonly DocumentLinkResolver _linkResolver;
 
-        public StructuredText Content { get; set; }
+        public StructuredText Fragment { get; set; }
 
         public StructuredTextTagHelper(DocumentLinkResolver linkResolver)
         {
-            _linkResolver = linkResolver;
+            _linkResolver = linkResolver ?? throw new ArgumentNullException(nameof(linkResolver));
         }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.SuppressOutput();
-
-            if (Content == null || !Content.Blocks.Any())
+            if (Fragment == null || !Fragment.Blocks.Any())
+            {
+                output.SuppressOutput();
                 return;
+            }
 
-            output.Attributes.RemoveAll("content");           
-            output.PreContent.AppendHtml(GetHtml(context));
+            if (Fragment.Blocks.Count > 1)
+            {
+                output.TagName = "div";
+                output.Content.SetHtmlContent(Fragment.AsHtml(_linkResolver));
+                return;
+            }
+
+            output.SuppressOutput();
+            output.Content.SetHtmlContent(GetHtml(output));
         }
 
-        protected virtual string GetHtml(TagHelperContext context) {
-            var attributes = CreateHtmlAttributeString(context);
+        protected virtual string GetHtml(TagHelperOutput output)
+        {
+            var label = Fragment.Blocks.First().Label;
 
-            return (Content.Blocks.Count == 1)
-                    ? GetHtml(attributes)
-                    : $"<div{attributes}>{GetHtml()}</div>";
+            if (!string.IsNullOrWhiteSpace(label))
+                UpdateCssClass(output, label);
+
+            var attrs = CreateHtmlAttributeString(output.Attributes);
+
+            return Fragment.AsHtml(_linkResolver, CreateSingleElementSerializer(attrs));
         }
 
-        protected virtual string GetHtml(string attributes = null)
-            => string.IsNullOrWhiteSpace(attributes)
-                ? Content.AsHtml(_linkResolver)
-                : Content.AsHtml(_linkResolver, Serializer(attributes));
-
-        protected virtual List<TagHelperAttribute> GetAttributes(TagHelperContext context)
-            => context
-                .AllAttributes
-                .Where(x => !x.Name.Equals("content", StringComparison.InvariantCultureIgnoreCase))
-                .ToList();
-
-        protected string CreateHtmlAttributeString(TagHelperContext context)
+        protected string CreateHtmlAttributeString(TagHelperAttributeList attributeList)
         {
             var attributes = string.Join(
                 " ",
-                GetAttributes(context)
-                    .Select(BuildAttribute)
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                );
+                attributeList
+                .Select(BuildAttribute)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+            );
 
             if (string.IsNullOrWhiteSpace(attributes))
                 return string.Empty;
@@ -66,42 +67,69 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
 
         protected string BuildAttribute(TagHelperAttribute attr)
         {
-            if (attr == null)
-                return string.Empty;
-
             switch (attr.ValueStyle)
             {
-                case HtmlAttributeValueStyle.DoubleQuotes:
-                    return $"{attr.Name}=\"{attr.Value}\"";
                 case HtmlAttributeValueStyle.SingleQuotes:
                     return $"{attr.Name}='{attr.Value}'";
                 case HtmlAttributeValueStyle.NoQuotes:
                     return $"{attr.Name}={attr.Value}";
                 case HtmlAttributeValueStyle.Minimized:
                     return attr.Name;
+                case HtmlAttributeValueStyle.DoubleQuotes:
+                default:
+                    return $"{attr.Name}=\"{attr.Value}\"";
             }
-
-            return string.Empty;
         }
 
-        protected virtual HtmlSerializer Serializer(string attributes) =>
-            HtmlSerializer.For((el, body) =>
-            {
-                if(body == string.Empty)
-                    return string.Empty;
-
-                switch (el)
+        protected virtual HtmlSerializer CreateSingleElementSerializer(string attributes)
+            => HtmlSerializer.For(
+                (el, body) =>
                 {
-                    case StructuredText.Heading h:
-                        return $"<h{h.Level} {attributes}>{body}</h{h.Level}>";
-                    case StructuredText.Paragraph p:
-                        return $"<p {attributes}>{body}</p>";
-                        // case StructuredText.Image img:
-                        //     return $"<img src={img.View.Url} alt={img.View.Alt} {attributes} />";
-                    default: 
-                        return null;
-                }
+                    switch (el)
+                    {
+                        case StructuredText.Heading h:
+                            return $"<h{h.Level}{attributes}>{body}</h{h.Level}>";
+                        case StructuredText.Paragraph p:
+                            return $"<p{attributes}>{body}</p>";
+                        case StructuredText.Preformatted pre:
+                            return $"<pre{attributes}>{body}</pre>";
+                        case StructuredText.Embed em:
+                            return $"<div{attributes}>{em.Obj.AsHtml()}</div>";
+                        case StructuredText.Image img:
+                            var sizeAttrs = string.Empty;
 
-            });
+                            if (img.Width > 0)
+                                sizeAttrs += $" width=\"{img.Width}\"";
+
+                            if (img.Height > 0)
+                                sizeAttrs += $" height=\"{img.Height}\"";
+
+                            return $"<img src=\"{img.Url}\" alt=\"{img.View.Alt}\"{attributes}{sizeAttrs} />";
+                        default:
+                            return null;
+                    }
+                }
+            );
+
+        private void UpdateCssClass(TagHelperOutput output, string label)
+        {
+            var cssClassAttr = output.Attributes.FirstOrDefault(a => a?.Name == "class");
+            var cssClass = label;
+
+            if (cssClassAttr != null)
+            {
+                output.Attributes.Remove(cssClassAttr);
+                cssClass = string.Join(" ", new[] { cssClassAttr.Value.ToString(), label }.Where(x => !string.IsNullOrWhiteSpace(x)));
+            }
+
+            output.Attributes.Add(CreateCssClassAttribute(cssClass));
+        }
+
+        private TagHelperAttribute CreateCssClassAttribute(string cssClass)
+            => new TagHelperAttribute(
+                "class",
+                cssClass,
+                HtmlAttributeValueStyle.DoubleQuotes
+            );
     }
 }

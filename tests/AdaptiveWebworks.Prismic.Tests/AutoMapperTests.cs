@@ -1,13 +1,12 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using AutoMapper;
 using prismic;
 using AdaptiveWebworks.Prismic.AutoMapper;
-using System.Collections.Generic;
 using prismic.fragments;
 
 namespace AdaptiveWebworks.Prismic.Tests
 {
+
     public class AutoMapperTests
     {
         [Fact]
@@ -15,7 +14,7 @@ namespace AdaptiveWebworks.Prismic.Tests
         {
             var mapperConfiguration = new MapperConfiguration(config =>
             {
-                config.CreateMap<Document, TestDestination>()
+                config.CreateMap<Document, Models.TestDestination>()
                     .ForMember(d => d.Uid, opt => opt.Uid())
                     .ForMember(d => d.Fragments, opt => opt.Fragments())
                     .ForMember(d => d.Fragment, opt => opt.Get("field"))
@@ -49,10 +48,10 @@ namespace AdaptiveWebworks.Prismic.Tests
                     .ForMember(d => d.GroupItems, opt => opt.MapGroup("field"));
                 ;
 
-                config.CreateMap<GroupDoc, GroupItemTest>()
+                config.CreateMap<GroupDoc, Models.GroupItemTest>()
                     .ForMember(d => d.String, opt => opt.GetText("field"));
 
-                config.CreateMap<CompositeSlice, TestDestination>()
+                config.CreateMap<CompositeSlice, Models.TestDestination>()
                     .ForMember(d => d.Fragments, opt => opt.CompositeSliceFragments())
                     .ForMember(d => d.Fragment, opt => opt.GetSliceFragment("field"))
                     .ForMember(d => d.AllFragments, opt => opt.GetAllSliceFragments("field"))
@@ -90,35 +89,5 @@ namespace AdaptiveWebworks.Prismic.Tests
             mapperConfiguration.AssertConfigurationIsValid();
         }
 
-        internal class TestDestination
-        {
-            public string Uid { get; set; }
-            public IDictionary<string, IFragment> Fragments { get; set; }
-            public IFragment Fragment { get; set; }
-            public IList<IFragment> AllFragments { get; set; }
-            public Color Color { get; set; }
-            public Date Date { get; set; }
-            public DateTime? DateTime { get; set; }
-            public Embed Embed { get; set; }
-            public GeoPoint GeoPoint { get; set; }
-            public Group Group { get; set; }
-            public string Html { get; set; }
-            public Image Image { get; set; }
-            public Image.View ImageView { get; set; }
-            public ILink Link { get; set; }
-            public Number Number { get; set; }
-            public SliceZone SliceZone { get; set; }
-            public StructuredText StructuredText { get; set; }
-            public string Text { get; set; }
-            public Timestamp Timestamp { get; set; }
-            public IList<DocumentLink> LinkedDocuments { get; set; }
-            public string LinkedDocumentUid { get; set; }
-            public string LinkDocumentField { get; set; }
-            public IList<GroupItemTest> GroupItems { get; set; }
-        }
-
-        public class GroupItemTest {
-            public string String { get; set; }
-        }
     }
 }
