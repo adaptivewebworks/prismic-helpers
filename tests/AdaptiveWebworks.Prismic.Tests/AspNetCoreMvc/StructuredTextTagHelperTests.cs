@@ -16,7 +16,7 @@ namespace AdaptiveWebworks.Prismic.Tests.AspNetCoreMvc
     /// </summary>
     public class StructuredTextTagHelperTests
     {
-        private DocumentLinkResolver linkResolver = DocumentLinkResolver.For(_ => string.Empty);
+        private readonly DocumentLinkResolver linkResolver = DocumentLinkResolver.For(_ => string.Empty);
 
         private readonly StructuredText Fragment = new StructuredText(new List<Block>{
             new Paragraph("Test", new List<Span>(), null),
@@ -110,6 +110,7 @@ namespace AdaptiveWebworks.Prismic.Tests.AspNetCoreMvc
             tagHelper.Process(ctx, output);
 
             Assert.Equal("div", output.TagName);
+            Assert.Equal(TagMode.StartTagAndEndTag, output.TagMode);
             Assert.Equal("<p>Test</p><pre>Case</pre>", output.Content.GetContent());
             Assert.False(output.Attributes.TryGetAttribute("content", out var _));
         }

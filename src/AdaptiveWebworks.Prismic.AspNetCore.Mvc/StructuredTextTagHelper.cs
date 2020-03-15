@@ -30,6 +30,7 @@ namespace AdaptiveWebworks.Prismic.AspNetCore.Mvc
             if (Fragment.Blocks.Count > 1)
             {
                 output.TagName = "div";
+                output.TagMode = TagMode.StartTagAndEndTag;
                 output.Content.SetHtmlContent(Fragment.AsHtml(_linkResolver));
                 return;
             }
