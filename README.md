@@ -1,4 +1,22 @@
 # Prismic.io Helpers
 Helpers for working with https://prismic.io/ and .Net Core
 
-N.B. These packages currently use a [forked version of prismic.io](https://github.com/benembery/csharp-kit) designed to work with .net standard and .net Core. You can either build this yourself or grab a copy from the [packages directory](https://github.com/benembery/prismic-helpers/blob/master/packages/prismicio.2.0.0.nupkg).
+These packages depend on .NET Core a the new prismic.io [.NET Standard Kit](https://github.com/adaptivewebworks/prismicio-netstandard-kit).
+
+There are two packages available 
+
+## ASP .NET Core Mvc
+
+A collection of tag helpers to improve Prismic.io .NET Core developer experience. Includes helpers for Structured Text, DocumentLinks, Images & Prismic Preview 
+
+```
+dotnet add package AdaptiveWebworks.Prismic.AspNetCore.Mvc
+```
+
+## AutoMapper
+
+Helpers for mapping Prismic Documents to domain specific classes. Including extensible helpers for resolving slices.
+
+```
+dotnet add package AdaptiveWebworks.Prismic.AutoMapper
+```
