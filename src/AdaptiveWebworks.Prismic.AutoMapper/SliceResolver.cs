@@ -26,7 +26,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
 
             foreach (var slice in slices)
             {
-                var mappedSlice = MapSliceType(slice, context);
+                var mappedSlice = MapSliceType(source.Type, slice, context);
 
                 if (mappedSlice != null)
                     mappedMember.Add(mappedSlice);
@@ -42,7 +42,7 @@ namespace AdaptiveWebworks.Prismic.AutoMapper
             return sliceZone?.Slices.OfType<CompositeSlice>().ToList();
         }
 
-        protected virtual IMappedSlice MapSliceType(CompositeSlice slice, ResolutionContext context)
+        protected virtual IMappedSlice MapSliceType(string docType, CompositeSlice slice, ResolutionContext context)
         {
             return null;
         }
