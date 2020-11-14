@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>adaptivewebworks.prismic.automapper</PackageId>
-    <VersionPrefix>0.5.0</VersionPrefix>
+    <VersionPrefix>0.6.0</VersionPrefix>
     <Authors>Ben Embery</Authors>
     <Company>Adaptive Webworks</Company>
     <LangVersion>latest</LangVersion>
