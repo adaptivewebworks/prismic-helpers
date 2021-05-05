@@ -1,29 +1,11 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
-pr: none
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-variables:
-  buildConfiguration: 'Release'
-  PRERELEASE_VERSION: 'pre.$(Build.BuildNumber)'
+parameters:
+- name: packDir
+  type: string
 
 steps:
-- script: dotnet clean --configuration $(buildConfiguration)
-  displayName: 'dotnet clean $(buildConfiguration)'
-
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-
-- script: dotnet test tests/**/*.csproj --configuration $(buildConfiguration) --no-build
-  displayName: 'dotnet test $(buildConfiguration)'
-
 - task: DotNetCoreCLI@2
   displayName: 'Create NuGet Packages'
+
   inputs:
     command: custom
     custom: pack
@@ -32,13 +14,14 @@ steps:
     ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:  
       arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages -v m --no-build
     zipAfterPublish: true
+    packDirectory: ${{ parameters.packageDir }}
   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['Build.SourceBranch'], 'refs/heads/dev')))
 
 - task: NuGetCommand@2
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/packages/*.nupkg;!$(Build.ArtifactStagingDirectory)/packages/*.symbols.nupkg'
-    nuGetFeedType: 'external'
+    nuGetFeedType: 'external'    
     allowPackageConflicts: true
     publishFeedCredentials: 'NuGet.org'
   condition: succeeded()
