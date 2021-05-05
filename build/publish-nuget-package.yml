@@ -14,7 +14,7 @@ steps:
     ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:  
       arguments: -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/packages -v m --no-build
     zipAfterPublish: true
-    packDirectory: ${{ parameters.packageDir }}
+    packDirectory: ${{ parameters.packDir }}
   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['Build.SourceBranch'], 'refs/heads/dev')))
 
 - task: NuGetCommand@2
