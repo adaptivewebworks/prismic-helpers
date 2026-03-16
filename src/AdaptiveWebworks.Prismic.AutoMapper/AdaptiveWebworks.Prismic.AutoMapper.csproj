@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.*" />
+    <PackageReference Include="AutoMapper" Version="15.*" />
     <PackageReference Include="prismicio.netstandard" Version="1.2" />
   </ItemGroup>
 
